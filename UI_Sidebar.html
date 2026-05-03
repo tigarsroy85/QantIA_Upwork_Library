@@ -1,0 +1,325 @@
+<!--
+  ============================================================================
+  Project: QantIA Technology Suite - Master Data Cleaner - Unit Pro
+  Author: Steven - QantIA Services
+  Copyright: (c) 2026 QantIA Services. All rights reserved.
+  License: Commercial - Integration Service
+  Website: https://www.upwork.com/services/qantia
+  ============================================================================
+-->
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <base target="_top" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --qantia-blue: #1a73e8;
+        --qantia-blue-dark: #1557b0;
+        --surface: #ffffff;
+        --on-surface: #202124;
+        --on-surface-secondary: #5f6368;
+        --divider: #dadce0;
+        --track-off: #e8eaed;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+        font-size: 14px;
+        color: var(--on-surface);
+        background: var(--surface);
+        line-height: 1.45;
+      }
+
+      .header {
+        padding: 20px 20px 12px;
+        border-bottom: 1px solid var(--divider);
+      }
+
+      .header h1 {
+        margin: 0 0 6px;
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+      }
+
+      .header p {
+        margin: 0;
+        font-size: 13px;
+        color: var(--on-surface-secondary);
+      }
+
+      .content {
+        padding: 16px 20px 24px;
+      }
+
+      .hint {
+        font-size: 12px;
+        color: var(--on-surface-secondary);
+        margin-bottom: 16px;
+        padding: 10px 12px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid var(--divider);
+      }
+
+      .option-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--divider);
+      }
+
+      .option-row:last-of-type {
+        border-bottom: none;
+      }
+
+      .option-label {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .option-label strong {
+        display: block;
+        font-weight: 500;
+        font-size: 14px;
+      }
+
+      .option-label span {
+        display: block;
+        font-size: 12px;
+        color: var(--on-surface-secondary);
+        margin-top: 2px;
+      }
+
+      /* Material-like switch */
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 40px;
+        height: 24px;
+        flex-shrink: 0;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        inset: 0;
+        background: var(--track-off);
+        border-radius: 24px;
+        transition: background 0.2s ease;
+      }
+
+      .slider::before {
+        position: absolute;
+        content: '';
+        height: 16px;
+        width: 16px;
+        left: 4px;
+        bottom: 4px;
+        background: #fff;
+        border-radius: 50%;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+        transition: transform 0.2s ease;
+      }
+
+      .switch input:checked + .slider {
+        background: var(--qantia-blue);
+      }
+
+      .switch input:checked + .slider::before {
+        transform: translateX(16px);
+      }
+
+      .switch input:focus-visible + .slider {
+        outline: 2px solid var(--qantia-blue);
+        outline-offset: 2px;
+      }
+
+      .actions {
+        margin-top: 20px;
+      }
+
+      .btn-primary {
+        width: 100%;
+        border: none;
+        border-radius: 4px;
+        padding: 12px 16px;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        color: #fff;
+        background: var(--qantia-blue);
+        cursor: pointer;
+        box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+        transition: background 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .btn-primary:hover {
+        background: var(--qantia-blue-dark);
+        box-shadow: 0 1px 3px rgba(60, 64, 67, 0.35), 0 4px 8px 3px rgba(60, 64, 67, 0.18);
+      }
+
+      .btn-primary:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+
+      .status {
+        margin-top: 14px;
+        min-height: 20px;
+        font-size: 13px;
+      }
+
+      .status.ok {
+        color: #137333;
+      }
+
+      .status.err {
+        color: #c5221f;
+      }
+
+      .footer {
+        padding: 12px 20px 20px;
+        font-size: 11px;
+        color: var(--on-surface-secondary);
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <h1>Master Data Cleaner</h1>
+      <p>Unit Pro — QantIA Services</p>
+    </header>
+
+    <div class="content">
+      <p class="hint">
+        Sélectionnez une plage dans la feuille. Pour les <strong>doublons</strong>, activez la cellule dans la
+        colonne clé (la première ligne conservée pour chaque valeur).
+      </p>
+
+      <div class="option-row">
+        <div class="option-label">
+          <strong>Espaces invisibles</strong>
+          <span>Trim, espaces insécables, caractères fantômes</span>
+        </div>
+        <label class="switch" title="trimWhiteSpaces">
+          <input type="checkbox" id="opt-trim" checked />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+      </div>
+
+      <div class="option-row">
+        <div class="option-label">
+          <strong>Noms</strong>
+          <span>Casse type titre (ex. JEAN DUPONT)</span>
+        </div>
+        <label class="switch" title="cleanNames">
+          <input type="checkbox" id="opt-names" checked />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+      </div>
+
+      <div class="option-row">
+        <div class="option-label">
+          <strong>Téléphones</strong>
+          <span>Format (514) 123-4567 si 10 chiffres NA</span>
+        </div>
+        <label class="switch" title="cleanPhones">
+          <input type="checkbox" id="opt-phones" checked />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+      </div>
+
+      <div class="option-row">
+        <div class="option-label">
+          <strong>Doublons</strong>
+          <span>Par valeur dans la colonne de la cellule active</span>
+        </div>
+        <label class="switch" title="removeDuplicates">
+          <input type="checkbox" id="opt-dup" />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-primary" id="btn-run">Lancer le nettoyage</button>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <footer class="footer">© 2026 QantIA Services</footer>
+
+    <script>
+      (function () {
+        var btn = document.getElementById('btn-run');
+        var statusEl = document.getElementById('status');
+
+        function setStatus(text, kind) {
+          statusEl.textContent = text || '';
+          statusEl.className = 'status' + (kind ? ' ' + kind : '');
+        }
+
+        btn.addEventListener('click', function () {
+          var options = {
+            trimWhiteSpaces: document.getElementById('opt-trim').checked,
+            cleanNames: document.getElementById('opt-names').checked,
+            cleanPhones: document.getElementById('opt-phones').checked,
+            removeDuplicates: document.getElementById('opt-dup').checked,
+          };
+
+          if (
+            !options.trimWhiteSpaces &&
+            !options.cleanNames &&
+            !options.cleanPhones &&
+            !options.removeDuplicates
+          ) {
+            setStatus('Cochez au moins une option.', 'err');
+            return;
+          }
+
+          btn.disabled = true;
+          setStatus('Traitement en cours…', '');
+
+          google.script.run
+            .withSuccessHandler(function (res) {
+              btn.disabled = false;
+              if (res && res.ok) {
+                setStatus(res.message, 'ok');
+              } else {
+                setStatus((res && res.message) || 'Une erreur est survenue.', 'err');
+              }
+            })
+            .withFailureHandler(function (err) {
+              btn.disabled = false;
+              setStatus(err.message || String(err), 'err');
+            })
+            .runMasterClean(options);
+        });
+      })();
+    </script>
+  </body>
+</html>
